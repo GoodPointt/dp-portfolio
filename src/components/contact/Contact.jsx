@@ -23,23 +23,27 @@ const Contact = () => {
   const formRef = useRef();
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const isInView = useInView(ref, { margin: '-100px' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
 
-    console.log(data);
-
     await sendEmail(data)
       .then((result) => {
         setSuccess(true);
+        formRef.current.reset();
       })
       .catch((error) => {
         setError(true);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -108,9 +112,18 @@ const Contact = () => {
           <input type="text" required placeholder="Name" name="name" />
           <input type="email" required placeholder="Email" name="email" />
           <textarea rows={8} placeholder="Message" name="message" />
-          <button>Submit</button>
-          {error && 'Error'}
-          {success && 'Success'}
+          {!isLoading ? (
+            <button type="submit">Submit</button>
+          ) : (
+            <div className="loader-container">
+              <div className="loader"></div>
+              <div className="loader-text">Sending...</div>
+            </div>
+          )}
+          <span className="error">{error && '⚠️ An error occurred.'}</span>
+          <span className="success">
+            {success && '✅ Email sent successfully!'}
+          </span>
         </motion.form>
       </div>
     </motion.div>
