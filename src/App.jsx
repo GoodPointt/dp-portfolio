@@ -26,6 +26,7 @@ const App = () => {
       </section>
       <Portfolio />
       <section id="Contact">
+        <Navbar />
         <Contact />
       </section>
     </div>
