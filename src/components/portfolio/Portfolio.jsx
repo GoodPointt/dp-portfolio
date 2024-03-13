@@ -15,7 +15,7 @@ const items = [
     title: 'Next.js Poly-Max',
     img: '/projects/poly-max.jpg',
     desc: 'Bilingual catalog of metal products in Germany with wide range of items, sorted and filtered by categories, search, information about company and contact form.',
-    demo: 'https://poly-max.vercel.app',
+    demo: 'https://poly-metal-max.vercel.app',
   },
   {
     id: 3,
